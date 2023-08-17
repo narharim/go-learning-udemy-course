@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"os"
 	"strings"
@@ -12,8 +11,9 @@ import (
 type deck []string
 
 func init() {
-	rand.Seed(time.Now().UnixMilli())
+	rand.New(rand.NewSource(time.Now().UnixMilli()))
 }
+
 func newDeck() deck {
 
 	cards := deck{}
@@ -43,14 +43,15 @@ func (d deck) toString() string {
 }
 
 func (d deck) saveToDisk(filename string) error {
-	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
 func newDeckFromDisk(filename string) deck {
 
 	deckBytes, err := os.ReadFile(filename)
 	if err != nil {
-		panic("unable to load the file")
+		fmt.Println("Error: unable to load the file", err)
+		os.Exit(1)
 	}
 	return strings.Split(string(deckBytes), ",")
 

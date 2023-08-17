@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 	cards := newDeck()
 
@@ -8,7 +10,7 @@ func main() {
 
 	err := hand.saveToDisk("deck.txt")
 	if err != nil {
-		panic("unable to write to file")
+		fmt.Println("Error: unable to write to file", err)
 	}
 	shuffledHand := hand.shuffle()
 	shuffledHand.print()
