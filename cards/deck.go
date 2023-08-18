@@ -34,7 +34,7 @@ func (d deck) print() {
 	}
 }
 
-func (d deck) deal(h int) (deck, deck) {
+func deal(d deck, h int) (deck, deck) {
 	return d[:h], d[h:]
 }
 
