@@ -13,8 +13,8 @@ type person struct {
 	contactInfo
 }
 
-func (p person) updateName(newFirstName string) {
-	p.firstName = newFirstName
+func (p *person) updateName(newFirstName string) {
+	(*p).firstName = newFirstName
 }
 
 func (p person) print() {
@@ -31,6 +31,7 @@ func main() {
 		},
 	}
 
-	bob.updateName("Alice")
-	bob.print()
+	bobPointer := &bob
+	bobPointer.updateName("Alice")
+	bobPointer.print()
 }
